@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { FlatList, StyleSheet, Button } from 'react-native';
 import EventCard from './EventCard';
 import { getEvents } from './api';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
     list: {
@@ -48,7 +49,7 @@ export default class EventList extends Component {
                 key="flatList"
                 style={styles.list}
                 data={this.state.events}
-                renderItem={({item}) => <EventCard event={item} />}
+                renderItem={({item}) => <TouchableHighlight onPress={() => this.props.navigation.navigate('details', item)}><EventCard event={item} /></TouchableHighlight>}
                 keyExtractor = {item => item.id}
             />,
             <Button

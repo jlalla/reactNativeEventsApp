@@ -29,6 +29,18 @@ export function saveEvent({title, date}){
   .catch(err => console.log(err));
 }
 
+export function deleteEvent(id){
+  debugger;
+  return fetch(url + '/' + id, {
+    method: 'DELETE',    
+    headers: new Headers({
+      'Content-Type': 'application/json'
+    })
+  })
+  .then(res => res.json())
+  .catch(err => console.log(err));
+}
+
 export function formatDateTime(dateString) {
   const parsed = moment(new Date(dateString));
 
