@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import  { View, Text, TouchableHighlight,
     TextInput, StyleSheet } from 'react-native';
 import { DateTimePickerModal } from "react-native-modal-datetime-picker";
-import { formatDateTime } from "./api";
+import { formatDateTime, saveEvent } from "./api";
 
 const styles = StyleSheet.create({
     fieldContainer:{
@@ -44,8 +44,9 @@ class EventForm extends Component{
     };
 
     handleAddPress = () =>{
-        console.log(this.state);
-        this.props.navigation.navigate('list');
+        //console.log(this.state);
+        saveEvent(this.state)
+            .then(() => this.props.navigation.navigate('list'));
     }
 
     handleChangeTitle = (value) =>{

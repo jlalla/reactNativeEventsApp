@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, Button } from 'react-native';
 import EventCard from './EventCard';
+import { getEvents } from './api';
 
 const styles = StyleSheet.create({
     list: {
@@ -15,10 +16,9 @@ export default class EventList extends Component {
         events: []
     }
 
-    componentDidMount(){
-
-        setInterval(() => {
-            debugger;
+    componentDidMount(){        
+        setInterval(() => {            
+            //update countdown
             this.setState({
                 events: this.state.events.map(
                     evt => ({...evt, timer: Date.now() }))
@@ -26,11 +26,16 @@ export default class EventList extends Component {
             
         /*const events = require('./db.json').events;*/
         /* por un tema de fechas y strings */ 
-        const events = require('./db.json').events.map(
+        /*const events = require('./db.json').events.map(
             e=>({...e, date: new Date(e.date)})
-        );
-        
-        this.setState({events});     
+        );*/
+
+        //load events when navigate to this screen        
+        this.props.navigation.addListener('focus', () =>{
+            debugger;
+            //get events from WEB API
+            getEvents().then(events => this.setState({ events }));            
+        });                        
     }
 
     handleAddEvent = () => {
